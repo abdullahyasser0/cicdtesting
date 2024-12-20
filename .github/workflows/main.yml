@@ -28,19 +28,20 @@ jobs:
         python-version: '3.12'
 
     - name: Install dependencies
+      working-directory: RepTrack-main
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
     - name: Run migrations
-      working-directory: backend
+      working-directory: RepTrack-main/backend
       run: |
         python manage.py migrate
 
 
 
     - name: Run Django tests
-      working-directory: backend
+      working-directory: RepTrack-main/backend
       run: |
         python manage.py test --verbosity=2
 
