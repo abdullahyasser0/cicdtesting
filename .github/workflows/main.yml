@@ -2,9 +2,9 @@ name: Django CI
 
 on:
   push:
-    branches: [ 53-restructure-backend-code ]
+    branches: [ main ]
   pull_request:
-    branches: [ 53-restructure-backend-code ]
+    branches: [ main ]
 
 
 jobs:
