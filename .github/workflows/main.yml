@@ -57,16 +57,22 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
+   
     - name: Set Azure App Settings
       uses: azure/CLI@v1
+      env:
+        SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+        SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+        SMTP_EMAIL: ${{ secrets.SMTP_EMAIL }}
+        SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
       with:
         azcliversion: "2.37.0"
         inlineScript: |
           az webapp config appsettings set --name Reptrack-Production \
-                     SECRET_KEY=${{ secrets.SECRET_KEY }} \
-                     DATABASE_URL=${{ secrets.DATABASE_URL }} \
-                     SUPABASE_URL=${{ secrets.SUPABASE_URL }} \
-                     SUPABASE_KEY=${{ secrets.SUPABASE_KEY }}
+                     SUPABASE_URL=$SUPABASE_URL \
+                     SUPABASE_KEY=$SUPABASE_KEY \
+                     SMTP_EMAIL=$SMTP_EMAIL \
+                     SMTP_PASSWORD=$SMTP_PASSWORD
 
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v2
