@@ -19,31 +19,22 @@ jobs:
       with:
         python-version: '3.12'
 
-    - name: Install dependencies with Pipenv
+    - name: Install dependencies from requirements.txt
       working-directory: RepTrack-main
       run: |
         python -m pip install --upgrade pip
-        pip install pipenv
-        pipenv install --deploy
-        
-    - name: Install dependencies in backend directory
-      working-directory: RepTrack-main/backend
+        pip install -r requirements.txt
+    - name: Verify installed dependencies
+      working-directory: RepTrack-main
       run: |
-        python -m pip install --upgrade pip
-        pip install pipenv
-        pipenv install --deploy
-
-
-    - name: Export PYTHONPATH for Django
-      working-directory: RepTrack-main/backend
-      run: |
-        export PYTHONPATH=$(pipenv --venv)/lib/python3.12/site-packages
+        pip list > installed_packages.txt
+        NUM_PACKAGES=$(wc -l < installed_packages.txt)
+        echo "Number of installed packages: $NUM_PACKAGES"
 
     - name: Collect static files
       working-directory: RepTrack-main/backend
       run: |
-        pipenv run python manage.py collectstatic --noinput
-
+        python manage.py collectstatic --noinput
 
     - name: Run migrations
       working-directory: RepTrack-main/backend
@@ -76,7 +67,7 @@ jobs:
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v2
       with:
-        app-name: AZURE_WEBAPP
+        app-name: Reptrack-Production
         slot-name: production
         package: RepTrack-main/backend
 
