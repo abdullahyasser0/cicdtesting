@@ -25,6 +25,14 @@ jobs:
         python -m pip install --upgrade pip
         pip install pipenv
         pipenv install --deploy
+        
+    - name: Install dependencies in backend directory
+      working-directory: RepTrack-main/backend
+      run: |
+        python -m pip install --upgrade pip
+        pip install pipenv
+        pipenv install --deploy
+
 
     - name: Export PYTHONPATH for Django
       working-directory: RepTrack-main/backend
