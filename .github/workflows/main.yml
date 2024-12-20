@@ -19,6 +19,12 @@ jobs:
       with:
         python-version: '3.12'
 
+    - name: Set environment variables
+      working-directory: RepTrack-main/backend
+      run: |
+        echo "SUPABASE_URL=${{ secrets.SUPABASE_URL }}" >> $GITHUB_ENV
+        echo "SUPABASE_KEY=${{ secrets.SUPABASE_KEY }}" >> $GITHUB_ENV
+
     - name: Install dependencies from requirements.txt
       working-directory: RepTrack-main
       run: |
