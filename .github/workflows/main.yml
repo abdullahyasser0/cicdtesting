@@ -24,6 +24,8 @@ jobs:
       run: |
         echo "SUPABASE_URL=${{ secrets.SUPABASE_URL }}" >> $GITHUB_ENV
         echo "SUPABASE_KEY=${{ secrets.SUPABASE_KEY }}" >> $GITHUB_ENV
+        echo "SUPABASE_URL=${{ secrets.SMTP_EMAIL }}" >> $GITHUB_ENV
+        echo "SUPABASE_KEY=${{ secrets.SMTP_PASSWORD }}" >> $GITHUB_ENV
 
     - name: Install dependencies from requirements.txt
       working-directory: RepTrack-main
@@ -56,8 +58,6 @@ jobs:
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-
                      
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v2
