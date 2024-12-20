@@ -62,7 +62,7 @@ jobs:
       with:
         azcliversion: "2.37.0"
         inlineScript: |
-          az webapp config appsettings set --name AZURE_WEBAPP \
+          az webapp config appsettings set --name Reptrack-Production \
           --resource-group ${{ secrets.RESOURCE_GROUP }} \
           --settings DJANGO_SETTINGS_MODULE=RepTrack-main.backend.settings \
                      SECRET_KEY=${{ secrets.SECRET_KEY }} \
