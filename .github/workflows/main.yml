@@ -26,6 +26,10 @@ jobs:
         pip install pipenv
         pipenv install --deploy
 
+    - name: Export PYTHONPATH for Django
+      working-directory: RepTrack-main/backend
+      run: |
+        export PYTHONPATH=$(pipenv --venv)/lib/python3.12/site-packages
 
     - name: Collect static files
       working-directory: RepTrack-main/backend
