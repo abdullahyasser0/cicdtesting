@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check Supabase Client Creation</title>
+    <!-- Link to Supabase JS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.0.0/dist/umd/supabase.min.js"></script>
+</head>
+
+<style>
+    .signup-container {
+      border-radius: 0;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .signup-wrapper {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      min-height: 950px;
+      width: 100%;
+      overflow: hidden;
+      align-items: start;
+      justify-content: center;
+      padding: 103px 80px;
+    }
+    
+    .background-image {
+      position: absolute;
+      inset: 0;
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+    
+    .form-container {
+      position: relative;
+      display: flex;
+      width: 402px;
+      max-width: 100%;
+      flex-direction: column;
+    }
+    
+    .signup-title {
+      color: rgb(26, 19, 99);
+      align-self: center;
+      font: 700 24px Manrope, sans-serif;
+    }
+    
+    .signup-subtitle {
+      color: rgb(52, 52, 52);
+      text-align: center;
+      align-self: center;
+      margin-top: 22px;
+      font: 600 14px Manrope, sans-serif;
+    }
+    
+    .signup-subtitle-ar {
+      color: rgb(52, 52, 52);
+      text-align: center;
+      align-self: center;
+      margin-top: 9px;
+      font: 600 14px Manrope, sans-serif;
+    }
+    
+    .input-field {
+      border-radius: 10px;
+      background-color: rgba(255, 255, 255, 0.08);
+      width: 100%;
+      color: rgba(0, 0, 0, 0.7);
+      padding: 12px 15px 26px;
+      font: 400 16px Poppins, sans-serif;
+      border: 1px solid rgba(0, 0, 0, 0.4);
+      margin-top: 28px;
+    }
+    
+    .password-container {
+      display: flex;
+      align-items: center;
+      background-color: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(0, 0, 0, 0.4);
+      border-radius: 10px;
+      margin-top: 28px;
+      padding: 0;
+      position: relative;
+    }
+    
+    .password-container input {
+      flex: 1;
+      border: none;
+      outline: none;
+      padding: 12px 15px;
+      font: 400 16px Poppins, sans-serif;
+      border-radius: 10px 0 0 10px;
+      background-color: transparent;
+      color: rgba(0, 0, 0, 0.7);
+    }
+    
+    .password-container input::placeholder {
+      color: rgba(0, 0, 0, 0.5);
+    }
+    
+    .password-container img {
+      width: 30px;
+      height: 30px;
+      margin-right: 10px;
+      cursor: pointer;
+    }
+    
+    .signup-button {
+      border-radius: 5px;
+      background-color: rgb(26, 19, 99);
+      margin-top: 29px;
+      width: 100%;
+      color: rgba(255, 255, 255, 0.9);
+      padding: 12px 70px 20px;
+      font: 600 16px Poppins, sans-serif;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .divider-text {
+      color: rgba(0, 0, 0, 0.8);
+      align-self: center;
+      margin-top: 32px;
+      font: 400 18px Poppins, sans-serif;
+    }
+    
+    .divider-container {
+      display: flex;
+      gap: 20px;
+      justify-content: space-between;
+    }
+    
+    .divider-line {
+      width: 146px;
+      height: 1px;
+      border: 1px solid rgba(0, 0, 0, 0.5);
+    }
+    
+    .social-button {
+      border-radius: 10px;
+      display: flex;
+      gap: 40px;
+      color: rgba(255, 255, 255, 0.9);
+      margin: 26px 0 0 11px;
+      padding: 8px 10px;
+      font: 600 16px Poppins, sans-serif;
+      cursor: pointer;
+      border: none;
+      align-items: center;
+      width: 100%;
+    }
+    
+    .social-icon {
+      aspect-ratio: 1.09;
+      object-fit: contain;
+      object-position: center;
+      width: 37px;
+    }
+    
+    .facebook-button {
+      background-color: rgb(24, 119, 242);
+    }
+    
+    .google-button {
+      background-color: rgba(255, 255, 255, 0.02);
+      color: rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(0, 0, 0, 0.4);
+    }
+    
+    .x-button {
+      background-color: rgb(0, 0, 0);
+    }
+    
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
+    }
+    .signup-button:hover {
+  background-color: rgb(22, 15, 85);
+}
+.options-container {
+  display: flex;
+  gap: 35px; /* Adjusted gap between options */
+  justify-content: center;
+  align-items: center;
+  margin-top: 15px; /* Added margin above the options */
+}
+
+.options-container label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.options-container input[type="radio"] {
+  display: none; /* Hide the default radio button */
+}
+
+.radio-label {
+  padding-left: 10px;
+  font-size: 16px;
+  color: #333;
+  position: relative;
+}
+
+.options-container input[type="radio"]:checked + .radio-label {
+  color: #007bff; /* Change text color when selected */
+  font-weight: bold;
+}
+
+.options-container input[type="radio"]:checked + .radio-label::before {
+  content: "";
+  position: absolute;
+  left: -20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  border: 2px solid #007bff;
+  border-radius: 50%;
+  background-color: #007bff;
+}
+
+.options-container input[type="radio"]:not(:checked) + .radio-label::before {
+  content: "";
+  position: absolute;
+  left: -20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  background-color: transparent;
+  transition: background-color 0.3s;
+}
+
+.options-container label:hover input[type="radio"]:not(:checked) + .radio-label::before {
+  border-color: #007bff;
+}
+.signup-prompt {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 30px;
+      font: 600 16px Manrope, sans-serif;
+    }
+    
+    @media (max-width: 991px) {
+      .signup-wrapper {
+        max-width: 100%;
+        padding: 100px 20px 0;
+      }
+      
+      .input-field {
+        margin-left: 8px;
+        padding-right: 20px;
+      }
+      
+      .password-container {
+        margin-left: 8px;
+      }
+      
+      .signup-button {
+        margin: 0 2px 0 9px;
+        padding: 0 20px;
+      }
+      
+      .divider-container {
+        margin-right: 3px;
+      }
+      
+      .social-button {
+        margin-left: 10px;
+      }
+    }
+    </style>
+    
+    <form id="signup-form" class="signup-container">
+      <div class="signup-wrapper">
+        <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/8c1450cd16cbcb30df27ad352a6e94379fabf80b38f87f9d4db1aa024485de6e?placeholderIfAbsent=true&apiKey=e9d236d8c0c94057ac283d5229bb03b9" alt="" class="background-image" />
+        <div class="form-container">
+          <h1 class="signup-title">Create an account</h1>
+          <p class="signup-subtitle">Connect with your friends today!</p>
+          <p class="signup-subtitle-ar">اعمل فورمتك النهارده</p>
+    
+          <label for="username" class="visually-hidden">Username</label>
+          <input type="text" id="username" class="input-field" placeholder="Enter Your Username" required />
+          <div id="usernameError" style="color: red; display: none;">Please fill out this field.</div>
+    
+          <label for="email" class="visually-hidden">Email</label>
+          <input type="email" id="email" class="input-field" placeholder="Enter Your Email" required />
+          <div id="emailError" style="color: red; display: none;">Please fill out this field.</div>
+    
+          <label for="phone" class="visually-hidden">Phone Number</label>
+          <input type="tel" id="phone" class="input-field" placeholder="Enter Your Phone Number" required />
+          <div id="phoneError" style="color: red; display: none;">Please fill out this field.</div>
+    
+          <div class="password-container">
+            <label for="password" class="visually-hidden">Password</label>
+            <input type="password" id="password" placeholder="Enter Your Password" autocomplete="new-password" required />
+            <img
+              loading="lazy"
+              src="https://cdn.builder.io/api/v1/image/assets/TEMP/482a3c01cbff113ec02eb181752319c28b143aad3dd3547789a587c4e45bbfe3?placeholderIfAbsent=true&apiKey=e9d236d8c0c94057ac283d5229bb03b9"
+              alt="Toggle password visibility"
+              class="password-toggle"
+              id="togglePassword"
+              data-visibility="hidden"
+            />
+          </div>
+    
+          <div class="password-container">
+            <label for="confirmPassword" class="visually-hidden">Confirm Password</label>
+            <input type="password" id="confirmPassword" placeholder="Confirm Your Password" autocomplete="new-password" required />
+            <img
+              loading="lazy"
+              src="https://cdn.builder.io/api/v1/image/assets/TEMP/482a3c01cbff113ec02eb181752319c28b143aad3dd3547789a587c4e45bbfe3?placeholderIfAbsent=true&apiKey=e9d236d8c0c94057ac283d5229bb03b9"
+              alt="Toggle confirm password visibility"
+              class="password-toggle"
+              id="toggleConfirmPassword"
+              data-visibility="hidden"
+            />
+          </div>
+    
+          <div class="options-container">
+            <label>
+              <input type="radio" name="type" value="trainee" id="trainee" required>
+              <span class="radio-label">Trainee</span>
+            </label>
+            <label>
+              <input type="radio" name="type" value="coach" id="coach" required>
+              <span class="radio-label">Coach</span>
+            </label>
+            <label>
+              <input type="radio" name="type" value="nutritionist" id="nutritionist" required>
+              <span class="radio-label">Nutritionist</span>
+            </label>
+          </div>
+    
+          <div id="passwordMatchError" style="color: red; display: none;">Passwords do not match!</div>
+    
+          <button type="submit" class="signup-button">Sign Up</button>
+    
+          <p class="divider-text">Or With</p>
+          <div class="divider-container">
+            <div class="divider-line"></div>
+            <div class="divider-line"></div>
+          </div>
+    
+          <button id="google-login-btn" type="button" class="social-button google-button">
+            <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/6658a138975c44bb4d019120bf7b03debbd334555acb7fe26d08e5215b665bc6?placeholderIfAbsent=true&apiKey=e9d236d8c0c94057ac283d5229bb03b9" alt="Google logo" class="social-icon" />
+            <span>Signup with Google</span>
+          </button>
+          <div class="signup-prompt">
+            <span>Don't have an account?</span>
+            <a href="{% url 'login' %}" class="signup-link">Login here</a>
+          </div>
+    
+        </div>
+      </div>
+    </form>
+    
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+  const visibleIcon = new Image();
+  const hiddenIcon = new Image();
+  visibleIcon.src = "https://cdn.builder.io/api/v1/image/assets/TEMP/576cce65a6f5a54005d0c024121ec174dd368897178c9898196255f404df8f5f?placeholderIfAbsent=true&apiKey=e9d236d8c0c94057ac283d5229bb03b9";
+  hiddenIcon.src = "https://cdn.builder.io/api/v1/image/assets/TEMP/482a3c01cbff113ec02eb181752319c28b143aad3dd3547789a587c4e45bbfe3?placeholderIfAbsent=true&apiKey=e9d236d8c0c94057ac283d5229bb03b9";
+
+  // Elements for password toggle
+  const passwordInput = document.getElementById('password');
+  const confirmPasswordInput = document.getElementById('confirmPassword');
+  const togglePasswordIcon = document.getElementById('togglePassword');
+  const toggleConfirmPasswordIcon = document.getElementById('toggleConfirmPassword');
+
+  // Toggle Password Visibility
+  togglePasswordIcon.addEventListener('click', () => {
+    const isPasswordHidden = passwordInput.type === 'password';
+    passwordInput.type = isPasswordHidden ? 'text' : 'password';
+    togglePasswordIcon.src = isPasswordHidden 
+      ? visibleIcon.src 
+      : hiddenIcon.src;
+    togglePasswordIcon.dataset.visibility = isPasswordHidden ? 'visible' : 'hidden';
+  });
+
+  // Toggle Confirm Password Visibility
+  toggleConfirmPasswordIcon.addEventListener('click', () => {
+    const isConfirmPasswordHidden = confirmPasswordInput.type === 'password';
+    confirmPasswordInput.type = isConfirmPasswordHidden ? 'text' : 'password';
+    toggleConfirmPasswordIcon.src = isConfirmPasswordHidden 
+      ? visibleIcon.src 
+      : hiddenIcon.src;
+    toggleConfirmPasswordIcon.dataset.visibility = isConfirmPasswordHidden ? 'visible' : 'hidden';
+  });
+
+  document.getElementById('signup-form').addEventListener('submit', function(event) {
+    event.preventDefault();  // Prevent the default form submission
+
+    const username = document.getElementById('username').value;
+    console.log('the data is',username);
+    const email = document.getElementById('email').value;
+    const phone = document.getElementById('phone').value;
+    const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('confirmPassword').value;
+    const errorMessage = document.getElementById('passwordMatchError');
+
+    // Reset error messages
+    document.getElementById('usernameError').style.display = 'none';
+    document.getElementById('emailError').style.display = 'none';
+    document.getElementById('phoneError').style.display = 'none';
+
+    // Validate fields
+    let isValid = true;
+    if (!username) {
+      document.getElementById('usernameError').style.display = 'block';
+      isValid = false;
+    }
+
+    if (!email) {
+      document.getElementById('emailError').style.display = 'block';
+      isValid = false;
+    }
+
+    if (!phone) {
+      document.getElementById('phoneError').style.display = 'block';
+      isValid = false;
+    }
+
+    if (!isValid) return;  // Stop submission if there are empty fields
+
+    if (password !== confirmPassword) {
+      errorMessage.style.display = 'block'; // Show password mismatch error
+      return;  // Stop the form submission
+    } else {
+      errorMessage.style.display = 'none'; // Hide error message
+    }
+
+    // Get account type
+    const type = document.querySelector('input[name="type"]:checked').value; 
+
+    // Prepare data to be sent
+    const signupData = {
+      name: username,
+      email: email,
+      phoneNumber: phone,
+      type: type,
+      password: password
+    };
+
+    const signupUrl = "{% url 'signupform' %}";
+
+    // Send data using fetch
+    fetch(signupUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': getCookie('csrftoken'),
+      },
+      body: JSON.stringify(signupData),
+    })
+    .then(response => {
+      if (response.ok) {
+        window.location.href = "{% url 'login' %}"; // Redirect on success
+      } else {
+        alert("An error occurred, please try again.");
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert("An error occurred, please try again.");
+    });
+  });
+
+  function getCookie(name) {
+    const cookieValue = document.cookie
+      .split('; ')
+      .find(row => row.startsWith(name + '='))
+      .split('=')[1];
+    return decodeURIComponent(cookieValue);
+  }
+});
+document.addEventListener("DOMContentLoaded", function() {
+            try {
+                console.log("Initializing Supabase client...");
+
+                // Initialize Supabase with your project URL and public API key
+                const supabaseUrl = 'https://sodghnhticinsggmbber.supabase.co';  // Replace with your Supabase URL
+                const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNvZGdobmh0aWNpbnNnZ21iYmVyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzIyODY5MzMsImV4cCI6MjA0Nzg2MjkzM30.dCfS98X9PFoZpBohhf0UdgSvvcwByOlAPki7-BPlExg';  // Replace with your public anon key from the Supabase dashboard
+                
+                console.log('Supabase URL:', supabaseUrl);  // Log URL to ensure it's correct
+                console.log('Supabase Key:', supabaseKey);  // Be cautious, do not expose the key in production
+
+                // Check if supabase object exists before calling createClient
+                if (typeof supabase === 'undefined') {
+                    console.error('Supabase SDK is not loaded correctly.');
+                    return;
+                }
+
+                // Create the Supabase client object
+                const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+
+                console.log('Supabase client successfully created:', supabaseClient);
+
+                // Check if supabase.auth is available
+                if (supabaseClient && supabaseClient.auth) {
+                    console.log('Supabase auth is available:', supabaseClient.auth);
+                } else {
+                    console.error('Supabase auth object is not available. Something went wrong with the client creation.');
+                }
+
+                // Optionally, you can also check the version of the Supabase SDK for debugging purposes
+                console.log('Supabase SDK version:', supabase.VERSION);
+
+                // Google login button logic
+                document.getElementById('google-login-btn').onclick = async () => {
+                    try {
+                        console.log("Google login initiated...");
+
+                        // Trigger Google login via Supabase OAuth
+                        const { user, session, error } = await supabaseClient.auth.signInWithOAuth({
+                            provider: 'google', // Google OAuth provider
+                        });
+
+                        if (error) {
+                            console.error('Error during Google login:', error.message);
+                            return;
+                        }
+
+                        // Successfully logged in, you can access the user info here
+                        console.log('Logged in user:', user);
+                        console.log('Session data:', session);
+
+                        // Store the JWT token (access token) in localStorage or cookies
+                        localStorage.setItem('supabase_jwt', session.access_token);
+
+                        // Redirect to a protected page or dashboard
+                        window.location.href = 'profile/information.html'; // Replace with your desired page
+
+                    } catch (error) {
+                        console.error('Error during Google OAuth login:', error);
+                    }
+                };
+
+            } catch (error) {
+                // Log detailed error if anything goes wrong
+                console.error('Error during Supabase client initialization:', error);
+            }
+        });
+  document.addEventListener("DOMContentLoaded", function () {
+    console.log("Processing token from URL...");
+
+    // Function to parse URL fragments
+    function getFragmentParams() {
+        const fragmentString = window.location.hash.substring(1); // Get the fragment after '#'
+        const params = {};
+        fragmentString.split("&").forEach((param) => {
+            const [key, value] = param.split("=");
+            params[decodeURIComponent(key)] = decodeURIComponent(value || "");
+        });
+        return params;
+    }
+
+    // Extract the access token from the URL fragment
+    const fragmentParams = getFragmentParams();
+    const accessToken = fragmentParams["access_token"];
+
+    if (accessToken) {
+        console.log("Access token captured:", accessToken);
+
+        // Store the token in sessionStorage (or send to backend for verification)
+        sessionStorage.setItem("auth_token", accessToken);
+
+        // Optionally, remove the fragment from the URL to clean it up
+        window.history.replaceState({}, document.title, window.location.pathname);
+
+        // Send the token to the backend for verification
+        fetch("/verify-token/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": getCookies("csrftoken"), // Include CSRF token for security
+            },
+            body: JSON.stringify({ token: accessToken }),
+        })
+            .then((response) => {
+                if (response.ok) {
+                    console.log("Token verification successful.");
+                    window.location.href = "profilesData/"; // Redirect to a protected page
+                } else {
+                    console.error("Token verification failed:", response);
+                    alert("Authentication failed. Please try again.");
+                }
+            })
+            .catch((error) => {
+                console.error("Error verifying token:", error);
+                alert("An error occurred. Please try again.");
+            });
+    } else {
+        console.log("No access token found in the URL.");
+    }
+
+    // Helper function to get CSRF token
+    function getCookies(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+      const cookies = document.cookie.split(';');
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+});
+
+
+    </script>
+    

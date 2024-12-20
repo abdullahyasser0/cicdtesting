@@ -1,0 +1,47 @@
+SupaBase Connection String :
+
+postgresql://postgres.sodghnhticinsggmbber:[M14759633695741@s]@aws-0-eu-central-1.pooler.supabase.com:6543/postgres
+
+
+Project API 
+
+Project URL  :            https://sodghnhticinsggmbber.supabase.co
+
+
+API Key      :            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNvZGdobmh0aWNpbnNnZ21iYmVyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzIyODY5MzMsImV4cCI6MjA0Nzg2MjkzM30.dCfS98X9PFoZpBohhf0UdgSvvcwByOlAPki7-BPlExg
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+                                                                                """""VIP"""""""
+
+
+For Python API Integration  :   https://supabase.com/docs/reference/python/initializing
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+ 1- connection string is used to connect to the Supabase database (PostgreSQL) directly via a database client or programming language.
+
+                 Direct Database Access: Used for connecting via SQL clients, ORMs (e.g., Sequelize, Prisma), or programming languages (e.g., Python, Node.js).
+
+
+
+2- API in Supabase provides endpoints for interacting with the database (Postgres) through RESTful calls.
+
+        RESTful API: Supabase automatically generates a RESTful API based on your database schema.
+        Usage: Designed for performing CRUD (Create, Read, Update, Delete) operations on the database.
+        Authentication: APIs are secured using API keys and JWT tokens for access control.
+        Real-time Updates: You can subscribe to changes in your database and get real-time updates.
+
+
+
+
+the DataBase Schemma 
+
+
+
+
+
+
+
+
