@@ -19,11 +19,12 @@ jobs:
       with:
         python-version: '3.12'
 
-    - name: Install dependencies
+    - name: Install dependencies with Pipenv
       working-directory: RepTrack-main
       run: |
         python -m pip install --upgrade pip
-        pip install -r requirements.txt
+        pip install pipenv
+        pipenv install --deploy --system
 
     - name: Collect static files
       working-directory: RepTrack-main/backend
@@ -50,8 +51,8 @@ jobs:
       with:
         azcliversion: "2.37.0"
         inlineScript: |
-          az webapp config appsettings set --name Reptrack \
-          --resource-group <RESOURCE_GROUP> \
+          az webapp config appsettings set --name AZURE_WEBAPP \
+          --resource-group ${{ secrets.RESOURCE_GROUP }} \
           --settings DJANGO_SETTINGS_MODULE=RepTrack-main.backend.settings \
                      SECRET_KEY=${{ secrets.SECRET_KEY }} \
                      DATABASE_URL=${{ secrets.DATABASE_URL }} \
@@ -61,11 +62,10 @@ jobs:
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v2
       with:
-        app-name: Reptrack-Production
+        app-name: AZURE_WEBAPP
         slot-name: production
-        package: RepTrack-main
-    - name: Start Django Development Server (for testing only)
-      working-directory: RepTrack-main/backend
-      run: |
-          python manage.py runserver 0.0.0.0:8000
+        package: RepTrack-main/backend
 
+    - name: Verify Deployment
+      run: |
+        curl -fsSL https://AZURE_WEBAPP.azurewebsites.net | grep -i "Reptrack"
